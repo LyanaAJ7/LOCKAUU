@@ -1,0 +1,1182 @@
+‏ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>حجوزاتي</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Tahoma, sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    background: #fff;
+}
+
+body {
+    direction: rtl;
+    color: #173f72;
+}
+
+.app {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: auto;
+    background: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 105px;
+    position: relative;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.header-title {
+    color: #17487d;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.back {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    color: #285b8f;
+    font-size: 35px;
+    line-height: 35px;
+}
+
+
+/* ================= TABS ================= */
+
+.tabs {
+    width: calc(100% - 36px);
+    height: 42px;
+    margin: 0 18px 15px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.tab {
+    height: 42px;
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.tab.current {
+    background: #4387d2;
+    color: #fff;
+}
+
+.tab.old {
+    background: #f8fbff;
+    color: #657990;
+}
+
+
+/* ================= BOOKINGS ================= */
+
+.bookings {
+    padding: 0 15px 100px;
+}
+
+.booking {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 15px 17px 13px;
+
+    background: #fff;
+    border: none;
+    border-radius: 21px;
+
+    box-shadow: 0 3px 13px rgba(35, 101, 157, 0.10);
+}
+
+
+/* ================= TOP OF CARD ================= */
+
+.booking-top {
+    width: 100%;
+    min-height: 91px;
+
+    /*
+       استخدمنا grid بدل flex
+       حتى يكون مكان الحالة والنص ثابت
+    */
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 10px;
+
+    direction: ltr;
+}
+
+
+/* الحالة دائماً يسار */
+
+.status {
+    grid-column: 1;
+    grid-row: 1;
+
+    justify-self: start;
+    align-self: start;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    direction: rtl;
+}
+
+.status.active {
+    background: #e1f6e9;
+    color: #3eaa70;
+}
+
+.status.finished {
+    background: #edf1f6;
+    color: #74849a;
+}
+
+
+/* معلومات اللوكر دائماً يمين */
+
+.building {
+    grid-column: 2;
+    grid-row: 1;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-start;
+    gap: 10px;
+
+    direction: rtl;
+
+    min-width: 0;
+}
+
+.booking-info {
+    text-align: right;
+    direction: rtl;
+    min-width: 0;
+}
+
+.locker {
+    color: #16477e;
+    font-size: 17px;
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    white-space: nowrap;
+}
+
+.info-line {
+    color: #657b94;
+    font-size: 13px;
+    line-height: 1.2;
+
+    margin-bottom: 6px;
+
+    white-space: nowrap;
+}
+
+.info-line strong {
+    color: #315c87;
+    font-weight: 600;
+}
+
+
+/* صورة اللوكر */
+
+.building-icon {
+    width: 46px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    border-radius: 7px;
+
+    background: #dcecff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #3277bd;
+    font-size: 28px;
+}
+
+
+/* ================= DATE / TIME ================= */
+
+.booking-details {
+    width: 100%;
+    height: 65px;
+
+    display: grid;
+
+    /*
+      ترتيب الأعمدة من اليمين:
+      التاريخ | البداية | النهاية
+    */
+    grid-template-columns: 1fr 1fr 1fr;
+
+    direction: rtl;
+
+    border-top: 1px solid #edf2f7;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.detail {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    direction: rtl;
+}
+
+.detail:not(:first-child) {
+    border-right: 1px solid #edf2f7;
+}
+
+.detail-label {
+    color: #637991;
+    font-size: 11px;
+    margin-bottom: 6px;
+
+    white-space: nowrap;
+}
+
+.detail-value {
+    color: #345d87;
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* ================= DURATION ================= */
+
+.duration {
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    direction: rtl;
+
+    padding-right: 2px;
+
+    color: #60768e;
+    font-size: 13px;
+}
+
+.duration strong {
+    color: #365f88;
+    margin-right: 4px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.manage {
+    width: 100%;
+    height: 43px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #e7f2fc;
+
+    color: #3971a7;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.manage-arrow {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+
+/* ================= QR PAGE ================= */
+
+#qrPage {
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 40px 25px 105px;
+
+    text-align: center;
+}
+
+.qr-title {
+    color: #173f72;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-bottom: 55px;
+}
+
+.qr-box {
+    width: 230px;
+    height: 230px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-box img {
+    width: 220px;
+    height: 220px;
+}
+
+.qr-text {
+    margin-top: 30px;
+
+    color: #234c79;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.no-internet {
+    margin-top: 48px;
+
+    color: #687d95;
+
+    font-size: 14px;
+    line-height: 2;
+}
+
+.pin {
+    display: inline-block;
+
+    margin-top: 14px;
+
+    padding: 12px 28px;
+
+    border-radius: 13px;
+
+    background: #f1f7fd;
+
+    color: #16477e;
+
+    font-size: 23px;
+    font-weight: 700;
+
+    direction: ltr;
+}
+
+.save {
+    width: 100%;
+    height: 52px;
+
+    margin-top: 22px;
+
+    border: none;
+    border-radius: 16px;
+
+    background: #4387d2;
+
+    color: #fff;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+/* ================= OTHER PAGES ================= */
+
+.other-page {
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 45px 25px 105px;
+
+    text-align: center;
+}
+
+.other-title {
+    color: #17487d;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.other-text {
+    margin-top: 35px;
+    color: #71849a;
+}
+
+
+/* ================= BOTTOM NAV ================= */
+
+.bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: 430px;
+    height: 78px;
+
+    background: #fff;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    align-items: center;
+
+    box-shadow: 0 -3px 13px rgba(40, 80, 120, 0.07);
+
+    z-index: 9999;
+}
+
+.nav-item {
+    height: 70px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #71849a;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    direction: rtl;
+}
+
+.nav-icon {
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+}
+
+.nav-item.active {
+    color: #1c568e;
+    font-weight: 700;
+}
+
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width: 360px) {
+
+    .booking {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .locker {
+        font-size: 15px;
+    }
+
+    .info-line {
+        font-size: 11px;
+    }
+
+    .building-icon {
+        width: 40px;
+        height: 48px;
+    }
+
+    .status {
+        padding: 6px 9px;
+    }
+
+    .detail-label {
+        font-size: 10px;
+    }
+
+    .detail-value {
+        font-size: 11px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================================================
+     BOOKINGS
+===================================================== -->
+
+<div id="bookingsPage">
+
+    <header class="header">
+
+        <div class="back">‹</div>
+
+        <div class="header-title">
+            حجوزاتي
+        </div>
+
+    </header>
+
+
+    <div class="tabs">
+
+        <div class="tab old">
+            السجل السابق
+        </div>
+
+        <div class="tab current">
+            الحجوزات الحالية
+        </div>
+
+    </div>
+
+
+    <main class="bookings">
+
+
+        <!-- ================= BOOKING 1 ================= -->
+
+        <div class="booking">
+
+            <div class="booking-top">
+
+                <!-- يسار -->
+                <div class="status active">
+                    ● حجز نشط
+                </div>
+
+                <!-- يمين -->
+                <div class="building">
+
+                    <div class="building-icon">
+                        ▣
+                    </div>
+
+                    <div class="booking-info">
+
+                        <div class="locker">
+                            اللوكر رقم 12
+                        </div>
+
+                        <div class="info-line">
+                            المبنى: <strong>الكلية الهندسية</strong>
+                        </div>
+
+                        <div class="info-line">
+                            الدور: <strong>الدور الأول</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="booking-details">
+
+                <!-- يمين -->
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📅 تاريخ الحجز
+                    </div>
+
+                    <div class="detail-value">
+                        2025/08/25
+                    </div>
+
+                </div>
+
+
+                <!-- الوسط -->
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت البداية
+                    </div>
+
+                    <div class="detail-value">
+                        09:00 ص
+                    </div>
+
+                </div>
+
+
+                <!-- يسار -->
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت الانتهاء
+                    </div>
+
+                    <div class="detail-value">
+                        10:00 ص
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="duration">
+                ◷ &nbsp; المدة:
+                <strong>ساعة</strong>
+            </div>
+
+
+            <button class="manage" onclick="openQR()">
+                إدارة الحجز
+                <span class="manage-arrow">‹</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= BOOKING 2 ================= -->
+
+        <div class="booking">
+
+            <div class="booking-top">
+
+                <div class="status finished">
+                    ● منتهي
+                </div>
+
+                <div class="building">
+
+                    <div class="building-icon">
+                        ▣
+                    </div>
+
+                    <div class="booking-info">
+
+                        <div class="locker">
+                            اللوكر رقم 5
+                        </div>
+
+                        <div class="info-line">
+                            المبنى: <strong>المكتبة المركزية</strong>
+                        </div>
+
+                        <div class="info-line">
+                            الدور: <strong>الدور الأرضي</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="booking-details">
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📅 تاريخ الحجز
+                    </div>
+
+                    <div class="detail-value">
+                        2025/08/20
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت البداية
+                    </div>
+
+                    <div class="detail-value">
+                        10:00 ص
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت الانتهاء
+                    </div>
+
+                    <div class="detail-value">
+                        12:00 م
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="duration">
+                ◷ &nbsp; المدة:
+                <strong>ساعتان</strong>
+            </div>
+
+
+            <button class="manage">
+                عرض السجل
+                <span class="manage-arrow">⌄</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= BOOKING 3 ================= -->
+
+        <div class="booking">
+
+            <div class="booking-top">
+
+                <div class="status finished">
+                    ● منتهي
+                </div>
+
+                <div class="building">
+
+                    <div class="building-icon">
+                        ▣
+                    </div>
+
+                    <div class="booking-info">
+
+                        <div class="locker">
+                            اللوكر رقم 8
+                        </div>
+
+                        <div class="info-line">
+                            المبنى: <strong>مبنى الطلاب</strong>
+                        </div>
+
+                        <div class="info-line">
+                            الدور: <strong>الدور الثاني</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="booking-details">
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        📅 تاريخ الحجز
+                    </div>
+
+                    <div class="detail-value">
+                        2025/08/15
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت البداية
+                    </div>
+
+                    <div class="detail-value">
+                        01:00 م
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        ◷ وقت الانتهاء
+                    </div>
+
+                    <div class="detail-value">
+                        03:00 م
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="duration">
+                ◷ &nbsp; المدة:
+                <strong>ساعتان</strong>
+            </div>
+
+
+            <button class="manage">
+                عرض السجل
+                <span class="manage-arrow">⌄</span>
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     QR PAGE
+===================================================== -->
+
+<div id="qrPage">
+
+    <div class="qr-title">
+        رمز الدخول
+    </div>
+
+
+    <div class="qr-box">
+
+        <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=LOCKER-12-4827"
+            alt="QR"
+        >
+
+    </div>
+
+
+    <div class="qr-text">
+        امسح الرمز لفتح اللوكر
+    </div>
+
+
+    <div class="no-internet">
+
+        في حال عدم توفر الإنترنت أو نفاد البطارية
+        <br>
+
+        استخدمي الرمز السري الاحتياطي
+
+    </div>
+
+
+    <div class="pin">
+        PIN: 4827
+    </div>
+
+
+    <button class="save" onclick="saveCode()">
+        حفظ الرمز
+    </button>
+
+</div>
+
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<div id="homePage" class="other-page">
+
+    <div class="other-title">
+        الرئيسية
+    </div>
+
+    <div class="other-text">
+        أهلاً بك 👋
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
+<div id="notificationsPage" class="other-page">
+
+    <div class="other-title">
+        التنبيهات
+    </div>
+
+    <div class="other-text">
+        لا توجد تنبيهات جديدة
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAP
+===================================================== -->
+
+<div id="mapPage" class="other-page">
+
+    <div class="other-title">
+        الخريطة
+    </div>
+
+    <div class="other-text">
+        الخريطة
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MORE
+===================================================== -->
+
+<div id="morePage" class="other-page">
+
+    <div class="other-title">
+        المزيد
+    </div>
+
+    <div class="other-text">
+        المزيد من الخيارات
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <!-- بالصورة: الرئيسية أقصى اليمين -->
+
+    <div class="nav-item active" onclick="showPage('home', 0)">
+
+        <div class="nav-icon">
+            ⌂
+        </div>
+
+        <span>
+            الرئيسية
+        </span>
+
+    </div>
+
+
+    <div class="nav-item" onclick="showPage('notifications', 1)">
+
+        <div class="nav-icon">
+            ♧
+        </div>
+
+        <span>
+            التنبيهات
+        </span>
+
+    </div>
+
+
+    <div class="nav-item" onclick="showPage('map', 2)">
+
+        <div class="nav-icon">
+            ♢
+        </div>
+
+        <span>
+            الخريطة
+        </span>
+
+    </div>
+
+
+    <div class="nav-item" onclick="showPage('bookings', 3)">
+
+        <div class="nav-icon">
+            ▣
+        </div>
+
+        <span>
+            الحجوزات
+        </span>
+
+    </div>
+
+
+    <div class="nav-item" onclick="showPage('more', 4)">
+
+        <div class="nav-icon">
+            •••
+        </div>
+
+        <span>
+            المزيد
+        </span>
+
+    </div>
+
+</nav>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   SHOW PAGE
+========================= */
+
+function showPage(page, activeIndex) {
+
+    document.getElementById("bookingsPage").style.display = "none";
+    document.getElementById("qrPage").style.display = "none";
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("notificationsPage").style.display = "none";
+    document.getElementById("mapPage").style.display = "none";
+    document.getElementById("morePage").style.display = "none";
+
+
+    if (page === "bookings") {
+        document.getElementById("bookingsPage").style.display = "block";
+    }
+
+    if (page === "home") {
+        document.getElementById("homePage").style.display = "block";
+    }
+
+    if (page === "notifications") {
+        document.getElementById("notificationsPage").style.display = "block";
+    }
+
+    if (page === "map") {
+        document.getElementById("mapPage").style.display = "block";
+    }
+
+    if (page === "more") {
+        document.getElementById("morePage").style.display = "block";
+    }
+
+
+    const navItems = document.querySelectorAll(".nav-item");
+
+    navItems.forEach(function(item) {
+        item.classList.remove("active");
+    });
+
+    navItems[activeIndex].classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+
+/* =========================
+   QR
+========================= */
+
+function openQR() {
+
+    document.getElementById("bookingsPage").style.display = "none";
+    document.getElementById("qrPage").style.display = "block";
+
+    const navItems = document.querySelectorAll(".nav-item");
+
+    navItems.forEach(function(item) {
+        item.classList.remove("active");
+    });
+
+    /*
+       الحجوزات تظل هي المختارة
+    */
+
+    navItems[3].classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveCode() {
+
+    alert("تم حفظ الرمز");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+showPage("bookings", 3);
+
+</script>
+
+</body>
+</html>T
+
+
